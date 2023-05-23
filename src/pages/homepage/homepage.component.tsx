@@ -7,7 +7,7 @@ export const HomePage = () => {
   const theme = useContext(ThemeContext);
   return (
     <section
-      className={clsx("", {
+      className={clsx({
         dark: theme === "dark",
       })}
     >

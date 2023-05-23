@@ -3,7 +3,7 @@ import { HomePage } from "@app/pages/homepage/homepage.component";
 
 export const App = () => {
   return (
-    <ThemeContext.Provider value="light">
+    <ThemeContext.Provider value="dark">
       <HomePage />
     </ThemeContext.Provider>
   );

@@ -6,13 +6,13 @@ import { TimerState } from "@app/types/timer-state";
 import { ReactComponent as PlayIcon } from "../../assets/icons/play.svg";
 import { ReactComponent as PauseIcon } from "../../assets/icons/pause.svg";
 
-interface IMainButtonProps {
+type StartButtonProps = {
   timerState: TimerState;
   isRunning: boolean;
   handleClick: () => void;
-}
+};
 
-export const MainButton: FC<IMainButtonProps> = ({
+export const StartButton: FC<StartButtonProps> = ({
   timerState,
   isRunning,
   handleClick,

@@ -17,13 +17,15 @@ export const Timer: FC<ITimerProps> = ({ timerState }) => {
 
   switch (timerState) {
     case "focus":
-      colorClasses = "text-red-900 dark:text-red-50 bg-red-50";
+      colorClasses = "text-red-900 bg-red-50 dark:text-red-50 dark:bg-red-950";
       break;
     case "long":
-      colorClasses = "text-blue-900 dark:text-blue-50 bg-blue-50";
+      colorClasses =
+        "text-blue-900 dark:text-blue-50 bg-blue-50 dark:bg-blue-950";
       break;
     case "short":
-      colorClasses = "text-green-900 dark:text-green-50 bg-green-50";
+      colorClasses =
+        "text-green-900 dark:text-green-50 bg-green-50 dark:bg-green-950";
       break;
   }
 
