@@ -3,17 +3,17 @@ import clsx from "clsx";
 import { padTo2Digits } from "@app/utils/padToTwoDidgits";
 
 type CounterProps = {
-  initialTime: number;
+  time: number;
   isRunning: boolean;
 };
 
-export const CounterView: FC<CounterProps> = ({ initialTime, isRunning }) => {
+export const CounterView: FC<CounterProps> = ({ time, isRunning }) => {
   const counterActivityClasses = isRunning
     ? "running font-extrabold"
     : "paused font-extralight";
 
-  const minutes = Math.floor(initialTime / 60);
-  const seconds = initialTime % 60;
+  const minutes = Math.floor(time / 60);
+  const seconds = time % 60;
 
   return (
     <div

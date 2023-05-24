@@ -1,5 +1,6 @@
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import clsx from "clsx";
+import useCountDown from "react-countdown-hook";
 
 import { Controls } from "@app/components/controls/controls.component";
 import { CounterView } from "@app/components/counter-view/counter-view.component";
@@ -11,7 +12,12 @@ type TimerProps = {
 };
 
 export const Timer: FC<TimerProps> = ({ timerState }) => {
-  const [isRunning, setIsRunning] = useState(false);
+  const [isRunning, setIsRunning] = useState(true);
+  const [isPaused, setIsPaused] = useState(false);
+
+  const initialTime = 60 * 1000;
+
+  const [time, { start, pause, resume }] = useCountDown(initialTime);
 
   let colorClasses = "";
 
@@ -29,8 +35,20 @@ export const Timer: FC<TimerProps> = ({ timerState }) => {
       break;
   }
 
+  useEffect(() => {
+    start();
+  }, [start]);
+
   const handleRunning = () => {
-    setIsRunning(!isRunning);
+    if (isPaused) {
+      resume();
+      setIsPaused(false);
+      setIsRunning(true);
+    } else {
+      pause();
+      setIsPaused(true);
+      setIsRunning(false);
+    }
   };
 
   return (
@@ -42,7 +60,7 @@ export const Timer: FC<TimerProps> = ({ timerState }) => {
     >
       <div className="flex flex-col items-center gap-y-8">
         <Label timerState={timerState} />
-        <CounterView initialTime={205} isRunning={isRunning} />
+        <CounterView time={time / 1000} isRunning={isRunning} />
         <Controls
           timerState={timerState}
           isRunning={isRunning}

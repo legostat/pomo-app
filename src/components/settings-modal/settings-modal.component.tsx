@@ -7,10 +7,14 @@ import { ReactComponent as CloseIcon } from "../../assets/icons/cross.svg";
 import { ThemeContext } from "@app/context/context";
 
 type SettingsProps = {
+  open?: boolean;
   timerState: TimerState;
 };
 
-export const SettingsModal: FC<SettingsProps> = ({ timerState }) => {
+export const SettingsModal: FC<SettingsProps> = ({
+  timerState,
+  open = false,
+}) => {
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [focus, setFocus] = useState(25);
 
@@ -44,7 +48,8 @@ export const SettingsModal: FC<SettingsProps> = ({ timerState }) => {
         "absolute left-1/2 top-1/2 z-50 w-[448px] -translate-x-1/2 -translate-y-1/2 transform rounded-2xl shadow",
         colorStyles,
         bgLight,
-        `dark:${bgDark}`
+        `dark:${bgDark}`,
+        { hidden: !open }
       )}
     >
       <header className="flex items-center justify-between p-6">
