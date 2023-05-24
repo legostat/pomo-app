@@ -12,8 +12,8 @@ export const HomePage = () => {
         dark: theme === "dark",
       })}
     >
-      <Timer timerState={"short"} />
-      <SettingsModal timerState={"short"} />
+      <Timer timerState={"focus"} />
+      <SettingsModal timerState={"focus"} />
     </section>
   );
 };
