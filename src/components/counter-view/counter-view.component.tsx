@@ -2,12 +2,12 @@ import { FC } from "react";
 import clsx from "clsx";
 import { padTo2Digits } from "@app/utils/padToTwoDidgits";
 
-interface ICounterProps {
+type CounterProps = {
   initialTime: number;
   isRunning: boolean;
-}
+};
 
-export const CounterView: FC<ICounterProps> = ({ initialTime, isRunning }) => {
+export const CounterView: FC<CounterProps> = ({ initialTime, isRunning }) => {
   const counterActivityClasses = isRunning
     ? "running font-extrabold"
     : "paused font-extralight";

@@ -6,11 +6,11 @@ import { CounterView } from "@app/components/counter-view/counter-view.component
 import { Label } from "@app/components/label/label.component";
 import { TimerState } from "@app/types/timer-state";
 
-interface ITimerProps {
+type TimerProps = {
   timerState: TimerState;
-}
+};
 
-export const Timer: FC<ITimerProps> = ({ timerState }) => {
+export const Timer: FC<TimerProps> = ({ timerState }) => {
   const [isRunning, setIsRunning] = useState(false);
 
   let colorClasses = "";

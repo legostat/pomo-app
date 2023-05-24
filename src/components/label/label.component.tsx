@@ -6,9 +6,9 @@ import { TimerState } from "@app/types/timer-state";
 import { ReactComponent as FocusIcon } from "../../assets/icons/brain.svg";
 import { ReactComponent as CoffeeIcon } from "../../assets/icons/coffee.svg";
 
-interface LabelProps {
+type LabelProps = {
   timerState: TimerState;
-}
+};
 
 export const Label: FC<LabelProps> = ({ timerState }) => {
   let labelClasses = "";

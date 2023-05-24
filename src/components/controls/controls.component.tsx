@@ -1,19 +1,18 @@
 import { FC } from "react";
-import { ControlButton } from "@app/components/control-button/control-button.component";
-import { StartButton } from "@app/components/start-button/start-button.component";
+import { ControlButton, StartButton } from "@app/components/buttons";
 
 import { ReactComponent as SettingsIcon } from "../../assets/icons/dots-three.svg";
 import { ReactComponent as ForwardIcon } from "../../assets/icons/fast-forward.svg";
 
 import { TimerState } from "@app/types/timer-state";
 
-interface IControlsTypes {
+type ControlsTypes = {
   isRunning: boolean;
   timerState: TimerState;
   handleRunningState: () => void;
-}
+};
 
-export const Controls: FC<IControlsTypes> = ({
+export const Controls: FC<ControlsTypes> = ({
   isRunning,
   timerState,
   handleRunningState,

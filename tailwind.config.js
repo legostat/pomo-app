@@ -118,6 +118,10 @@ module.exports = {
         },
       ],
     },
+    boxShadow: {
+      DEFAULT:
+        "0px 1px 6px rgba(0, 0, 0, 0.039), 0px 5.5px 16px rgba(0, 0, 0, 0.19)",
+    },
     extend: {
       borderRadius: {
         "4xl": "2rem",

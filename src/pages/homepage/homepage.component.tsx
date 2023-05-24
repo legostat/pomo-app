@@ -1,3 +1,4 @@
+import { SettingsModal } from "@app/components/settings-modal/settings-modal.component";
 import { Timer } from "@app/components/timer/timer.component";
 import { ThemeContext } from "@app/context/context";
 import clsx from "clsx";
@@ -7,11 +8,12 @@ export const HomePage = () => {
   const theme = useContext(ThemeContext);
   return (
     <section
-      className={clsx({
+      className={clsx("relative", {
         dark: theme === "dark",
       })}
     >
-      <Timer timerState={"focus"} />
+      <Timer timerState={"short"} />
+      <SettingsModal timerState={"short"} />
     </section>
   );
 };
