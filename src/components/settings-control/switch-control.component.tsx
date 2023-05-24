@@ -6,7 +6,7 @@ type SwitchProps = {
   enabled: boolean;
   sliderLight: string;
   sliderDark: string;
-  handleChange: () => void;
+  handleChange: () => void | undefined;
 };
 
 export const SwitchControl: FC<SwitchProps> = ({

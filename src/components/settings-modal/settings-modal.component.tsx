@@ -1,9 +1,10 @@
-import { FC, useState } from "react";
+import { FC, useState, useContext } from "react";
 import clsx from "clsx";
 import { TimerState } from "@app/types/timer-state";
 
 import { SwitchControl, InputControl } from "@app/components/settings-control";
 import { ReactComponent as CloseIcon } from "../../assets/icons/cross.svg";
+import { ThemeContext } from "@app/context/context";
 
 type SettingsProps = {
   timerState: TimerState;
@@ -13,6 +14,8 @@ export const SettingsModal: FC<SettingsProps> = ({ timerState }) => {
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [focus, setFocus] = useState(25);
 
+  const { isDark, toggleIsDark } = useContext(ThemeContext);
+
   let colorStyles = "";
   let bgLight = "";
   let bgDark = "";
@@ -21,17 +24,17 @@ export const SettingsModal: FC<SettingsProps> = ({ timerState }) => {
     case "focus":
       colorStyles = "text-red-900 dark:text-red-50";
       bgLight = "bg-red-50";
-      bgDark = "dark:bg-red-950";
+      bgDark = "bg-red-950";
       break;
     case "long":
       colorStyles = "text-blue-900 dark:text-blue-50";
       bgLight = "bg-blue-50";
-      bgDark = "dark:bg-blue-950";
+      bgDark = "bg-blue-950";
       break;
     case "short":
       colorStyles = "text-green-900 dark:bg-green-950";
       bgLight = "bg-green-50";
-      bgDark = "dark:bg-green-950";
+      bgDark = "bg-green-950";
       break;
   }
 
@@ -41,7 +44,7 @@ export const SettingsModal: FC<SettingsProps> = ({ timerState }) => {
         "absolute left-1/2 top-1/2 z-50 w-[448px] -translate-x-1/2 -translate-y-1/2 transform rounded-2xl shadow",
         colorStyles,
         bgLight,
-        bgDark
+        `dark:${bgDark}`
       )}
     >
       <header className="flex items-center justify-between p-6">
@@ -53,10 +56,8 @@ export const SettingsModal: FC<SettingsProps> = ({ timerState }) => {
       <div>
         <SwitchControl
           title="Dark mode"
-          enabled={isDarkMode}
-          handleChange={() => {
-            setIsDarkMode(!isDarkMode);
-          }}
+          enabled={isDark}
+          handleChange={toggleIsDark}
           sliderLight={bgLight}
           sliderDark={bgDark}
         />
