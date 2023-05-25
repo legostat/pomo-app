@@ -1,19 +1,17 @@
+import { useState } from "react";
 import { ThemeContext } from "@app/context/context";
 import { HomePage } from "@app/pages/homepage/homepage.component";
-import { Theme } from "@app/types/theme";
-import { useCallback, useMemo, useState } from "react";
+
+import type { Theme } from "@app/types/theme";
 
 export const App = () => {
   const [isDark, setIsDark] = useState(false);
 
-  const toggleIsDark = useCallback(() => {
+  const toggleIsDark = () => {
     setIsDark(!isDark);
-  }, [isDark]);
+  };
 
-  const theme: Theme = useMemo(
-    () => ({ isDark, toggleIsDark }),
-    [isDark, toggleIsDark]
-  );
+  const theme: Theme = { isDark, toggleIsDark };
 
   return (
     <ThemeContext.Provider value={theme}>

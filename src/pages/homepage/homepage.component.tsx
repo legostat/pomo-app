@@ -13,8 +13,8 @@ export const HomePage = () => {
         dark: theme.isDark,
       })}
     >
-      <Timer timerState={"focus"} />
-      <SettingsModal timerState={"focus"} />
+      <Timer />
+      <SettingsModal />
     </section>
   );
 };

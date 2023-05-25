@@ -1,60 +1,75 @@
-import { FC, useState, useContext } from "react";
+import { FC, useContext } from "react";
 import clsx from "clsx";
-import { TimerState } from "@app/types/timer-state";
+import { createStructuredSelector } from "reselect";
+
+import { useTimerState } from "@app/hooks/useTimerState";
+
+import {
+  selectOpenSettingsModal,
+  toggleSettingsModal,
+} from "@app/store/modals";
+
+import {
+  selectAreNotificationsEnabled,
+  selectFocusLength,
+  selectLongBreakLength,
+  selectShortBreakLength,
+  setFocusLength,
+  setLongBreakLength,
+  setShortBreakLength,
+  toggleNotifications,
+} from "@app/store/settings";
 
 import { SwitchControl, InputControl } from "@app/components/settings-control";
 import { ReactComponent as CloseIcon } from "../../assets/icons/cross.svg";
 import { ThemeContext } from "@app/context/context";
+import { connect } from "react-redux";
 
-type SettingsProps = {
-  open?: boolean;
-  timerState: TimerState;
+type SettingsModalProps = {
+  open: boolean;
+  notificationsEnabled: boolean;
+  focusLength: number;
+  longBreakLength: number;
+  shortBreakLength: number;
+  toggleSettingsModal: () => void;
+  toggleNotifications: () => void;
+  setFocusLength: (length: number) => void;
+  setLongBreakLength: (length: number) => void;
+  setShortBreakLength: (length: number) => void;
 };
 
-export const SettingsModal: FC<SettingsProps> = ({
-  timerState,
-  open = false,
+export const SettingsModalComponent: FC<SettingsModalProps> = ({
+  open,
+  notificationsEnabled,
+  focusLength,
+  longBreakLength,
+  shortBreakLength,
+  toggleSettingsModal,
+  toggleNotifications,
+  setFocusLength,
+  setLongBreakLength,
+  setShortBreakLength,
 }) => {
-  const [isDarkMode, setIsDarkMode] = useState(false);
-  const [focus, setFocus] = useState(25);
-
   const { isDark, toggleIsDark } = useContext(ThemeContext);
 
-  let colorStyles = "";
-  let bgLight = "";
-  let bgDark = "";
-
-  switch (timerState) {
-    case "focus":
-      colorStyles = "text-red-900 dark:text-red-50";
-      bgLight = "bg-red-50";
-      bgDark = "bg-red-950";
-      break;
-    case "long":
-      colorStyles = "text-blue-900 dark:text-blue-50";
-      bgLight = "bg-blue-50";
-      bgDark = "bg-blue-950";
-      break;
-    case "short":
-      colorStyles = "text-green-900 dark:bg-green-950";
-      bgLight = "bg-green-50";
-      bgDark = "bg-green-950";
-      break;
-  }
+  const { settingsModalStyles } = useTimerState();
 
   return (
     <section
       className={clsx(
         "absolute left-1/2 top-1/2 z-50 w-[448px] -translate-x-1/2 -translate-y-1/2 transform rounded-2xl shadow",
-        colorStyles,
-        bgLight,
-        `dark:${bgDark}`,
+        settingsModalStyles,
         { hidden: !open }
       )}
     >
       <header className="flex items-center justify-between p-6">
         <h2 className="text-header">Settings</h2>
-        <button className="flex h-[34px] w-[34px] flex-none items-center justify-center">
+        <button
+          onClick={() => {
+            toggleSettingsModal();
+          }}
+          className="flex h-[34px] w-[34px] flex-none items-center justify-center"
+        >
           <CloseIcon className="w-[18px] flex-none" />
         </button>
       </header>
@@ -63,40 +78,52 @@ export const SettingsModal: FC<SettingsProps> = ({
           title="Dark mode"
           enabled={isDark}
           handleChange={toggleIsDark}
-          sliderLight={bgLight}
-          sliderDark={bgDark}
         />
         <InputControl
           title="Focus length"
-          value={focus}
+          value={focusLength}
           handleChange={(value) => {
-            setFocus(value);
+            setFocusLength(value);
           }}
         />
         <InputControl
           title="Short break length"
-          value={focus}
+          value={shortBreakLength}
           handleChange={(value) => {
-            setFocus(value);
+            setShortBreakLength(value);
           }}
         />
         <InputControl
           title="Long break length"
-          value={focus}
+          value={longBreakLength}
           handleChange={(value) => {
-            setFocus(value);
+            setLongBreakLength(value);
           }}
         />
         <SwitchControl
           title="Notifications"
-          enabled={isDarkMode}
+          enabled={notificationsEnabled}
           handleChange={() => {
-            setIsDarkMode(!isDarkMode);
+            toggleNotifications();
           }}
-          sliderLight={bgLight}
-          sliderDark={bgDark}
         />
       </div>
     </section>
   );
 };
+
+const mapStateToProps = createStructuredSelector({
+  open: selectOpenSettingsModal,
+  focusLength: selectFocusLength,
+  longBreakLength: selectLongBreakLength,
+  shortBreakLength: selectShortBreakLength,
+  notificationsEnabled: selectAreNotificationsEnabled,
+});
+
+export const SettingsModal = connect(mapStateToProps, {
+  toggleSettingsModal,
+  toggleNotifications,
+  setFocusLength,
+  setLongBreakLength,
+  setShortBreakLength,
+})(SettingsModalComponent);

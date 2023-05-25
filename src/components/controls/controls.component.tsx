@@ -1,35 +1,39 @@
 import { FC } from "react";
+import { connect } from "react-redux";
 import { ControlButton, StartButton } from "@app/components/buttons";
+
+import { toggleSettingsModal } from "@app/store/modals";
+import { setNextState } from "@app/store/timer";
 
 import { ReactComponent as SettingsIcon } from "../../assets/icons/dots-three.svg";
 import { ReactComponent as ForwardIcon } from "../../assets/icons/fast-forward.svg";
 
-import { TimerState } from "@app/types/timer-state";
-
 type ControlsTypes = {
   isRunning: boolean;
-  timerState: TimerState;
   handleRunningState: () => void;
+  toggleSettingsModal: () => void;
+  setNextState: () => void;
 };
 
-export const Controls: FC<ControlsTypes> = ({
+const ControlsComponent: FC<ControlsTypes> = ({
   isRunning,
-  timerState,
   handleRunningState,
+  toggleSettingsModal,
+  setNextState,
 }) => {
   return (
     <div className="flex items-center justify-center gap-x-4">
-      <ControlButton timerState={timerState} handleClick={() => {}}>
+      <ControlButton handleClick={toggleSettingsModal}>
         <SettingsIcon className="w-[27px] flex-none" />
       </ControlButton>
-      <StartButton
-        timerState={timerState}
-        handleClick={handleRunningState}
-        isRunning={isRunning}
-      />
-      <ControlButton timerState={timerState} handleClick={() => {}}>
+      <StartButton handleClick={handleRunningState} isRunning={isRunning} />
+      <ControlButton handleClick={setNextState}>
         <ForwardIcon className="w-[29px] flex-none" />
       </ControlButton>
     </div>
   );
 };
+
+export const Controls = connect(null, { toggleSettingsModal, setNextState })(
+  ControlsComponent
+);
