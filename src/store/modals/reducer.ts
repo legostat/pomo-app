@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import type { PayloadAction } from "@reduxjs/toolkit";
 
 interface Modals {
   openSettings: boolean;
@@ -17,12 +18,13 @@ export const modalsSlice = createSlice({
     toggleSettingsModal: (state) => {
       state.openSettings = !state.openSettings;
     },
-    toggleNotification: (state) => {
-      state.openNotification = !state.openNotification;
+    toggleShowNotification: (state, action: PayloadAction<boolean>) => {
+      state.openNotification = action.payload;
     },
   },
 });
 
-export const { toggleSettingsModal, toggleNotification } = modalsSlice.actions;
+export const { toggleSettingsModal, toggleShowNotification } =
+  modalsSlice.actions;
 
 export default modalsSlice.reducer;
