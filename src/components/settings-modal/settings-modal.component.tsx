@@ -8,6 +8,8 @@ import { toggleSettingsModal } from "@app/store/modals/reducer";
 
 import { selectOpenSettingsModal } from "@app/store/modals/selectors";
 
+import { toggleShowNotification } from "@app/store/modals/reducer";
+
 import {
   setFocusLength,
   setLongBreakLength,
@@ -38,6 +40,7 @@ type SettingsModalProps = {
   setFocusLength: (length: number) => void;
   setLongBreakLength: (length: number) => void;
   setShortBreakLength: (length: number) => void;
+  toggleShowNotification: (arg0: boolean) => void;
 };
 
 export const SettingsModalComponent: FC<SettingsModalProps> = ({
@@ -51,6 +54,7 @@ export const SettingsModalComponent: FC<SettingsModalProps> = ({
   setFocusLength,
   setLongBreakLength,
   setShortBreakLength,
+  toggleShowNotification,
 }) => {
   const { isDark, toggleIsDark } = useContext(ThemeContext);
 
@@ -107,6 +111,7 @@ export const SettingsModalComponent: FC<SettingsModalProps> = ({
           enabled={notificationsEnabled}
           handleChange={() => {
             toggleNotifications();
+            toggleShowNotification(false);
           }}
         />
       </div>
@@ -128,4 +133,5 @@ export const SettingsModal = connect(mapStateToProps, {
   setFocusLength,
   setLongBreakLength,
   setShortBreakLength,
+  toggleShowNotification,
 })(SettingsModalComponent);

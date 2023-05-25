@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { connect } from "react-redux";
-import { ControlButton, StartButton } from "@app/components/buttons";
 
+import { ControlButton, StartButton } from "@app/components/buttons";
 import { toggleSettingsModal } from "@app/store/modals/reducer";
 import { setNextState } from "@app/store/timer/reducer";
 import { toggleShowNotification } from "@app/store/modals/reducer";
