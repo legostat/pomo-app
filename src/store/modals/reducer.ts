@@ -1,12 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
-import type { RootState } from "@app/store/store";
 
 interface Modals {
   openSettings: boolean;
+  openNotification: boolean;
 }
 
 const initialState: Modals = {
   openSettings: false,
+  openNotification: false,
 };
 
 export const modalsSlice = createSlice({
@@ -16,12 +17,12 @@ export const modalsSlice = createSlice({
     toggleSettingsModal: (state) => {
       state.openSettings = !state.openSettings;
     },
+    toggleNotification: (state) => {
+      state.openNotification = !state.openNotification;
+    },
   },
 });
 
-export const { toggleSettingsModal } = modalsSlice.actions;
-
-export const selectOpenSettingsModal = (state: RootState) =>
-  state.modals.openSettings;
+export const { toggleSettingsModal, toggleNotification } = modalsSlice.actions;
 
 export default modalsSlice.reducer;

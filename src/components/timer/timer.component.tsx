@@ -1,26 +1,47 @@
-import { useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import clsx from "clsx";
+import { connect } from "react-redux";
+import { createStructuredSelector } from "reselect";
 
 import useCountDown from "react-countdown-hook";
 import { useTimerState } from "@app/hooks/useTimerState";
 
+import { setNextState } from "@app/store/timer/reducer";
+
 import { Controls } from "@app/components/controls/controls.component";
 import { CounterView } from "@app/components/counter-view/counter-view.component";
 import { Label } from "@app/components/label/label.component";
+import { selectAreNotificationsEnabled } from "@app/store/settings/selectors";
 
-export const Timer = () => {
+interface TimerProps {
+  showNotifications: boolean;
+  setNextState: () => void;
+}
+
+const TimerComponent: FC<TimerProps> = ({ setNextState }) => {
+  const { timerStyles, initialTime } = useTimerState();
   const [isRunning, setIsRunning] = useState(true);
   const [isPaused, setIsPaused] = useState(false);
 
-  const initialTime = 60 * 1000;
-
-  const [time, { start, pause, resume }] = useCountDown(initialTime);
-
-  const { timerStyles } = useTimerState();
+  const [time, { start, pause, resume }] = useCountDown(initialTime * 1000);
 
   useEffect(() => {
-    start();
-  }, [start]);
+    start(initialTime * 1000);
+    setIsRunning(true);
+    setIsPaused(false);
+  }, [start, initialTime]);
+
+  useEffect(() => {
+    if (time <= 0) {
+      setNextState();
+    }
+  }, [time, setNextState]);
+
+  /* useEffect(() => {
+    if (showNotifications) {
+      alert(labelText);
+    }
+  }, [labelText]); */
 
   const handleRunning = () => {
     if (isPaused) {
@@ -49,3 +70,9 @@ export const Timer = () => {
     </section>
   );
 };
+
+const mapStateToProps = createStructuredSelector({
+  showNotifications: selectAreNotificationsEnabled,
+});
+
+export const Timer = connect(mapStateToProps, { setNextState })(TimerComponent);

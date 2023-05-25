@@ -2,8 +2,8 @@ import { FC } from "react";
 import { connect } from "react-redux";
 import { ControlButton, StartButton } from "@app/components/buttons";
 
-import { toggleSettingsModal } from "@app/store/modals";
-import { setNextState } from "@app/store/timer";
+import { toggleSettingsModal } from "@app/store/modals/reducer";
+import { setNextState } from "@app/store/timer/reducer";
 
 import { ReactComponent as SettingsIcon } from "../../assets/icons/dots-three.svg";
 import { ReactComponent as ForwardIcon } from "../../assets/icons/fast-forward.svg";

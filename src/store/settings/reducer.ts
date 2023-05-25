@@ -1,6 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
-import type { RootState } from "@app/store/store";
 
 interface Settings {
   focusLength: number;
@@ -41,14 +40,5 @@ export const {
   setShortBreakLength,
   toggleNotifications,
 } = settingsSlice.actions;
-
-export const selectFocusLength = (state: RootState) =>
-  state.setttings.focusLength;
-export const selectShortBreakLength = (state: RootState) =>
-  state.setttings.shortBreakLength;
-export const selectLongBreakLength = (state: RootState) =>
-  state.setttings.longBreakLength;
-export const selectAreNotificationsEnabled = (state: RootState) =>
-  state.setttings.notifications;
 
 export default settingsSlice.reducer;

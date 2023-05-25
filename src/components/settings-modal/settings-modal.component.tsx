@@ -4,21 +4,23 @@ import { createStructuredSelector } from "reselect";
 
 import { useTimerState } from "@app/hooks/useTimerState";
 
+import { toggleSettingsModal } from "@app/store/modals/reducer";
+
+import { selectOpenSettingsModal } from "@app/store/modals/selectors";
+
 import {
-  selectOpenSettingsModal,
-  toggleSettingsModal,
-} from "@app/store/modals";
+  setFocusLength,
+  setLongBreakLength,
+  setShortBreakLength,
+  toggleNotifications,
+} from "@app/store/settings/reducer";
 
 import {
   selectAreNotificationsEnabled,
   selectFocusLength,
   selectLongBreakLength,
   selectShortBreakLength,
-  setFocusLength,
-  setLongBreakLength,
-  setShortBreakLength,
-  toggleNotifications,
-} from "@app/store/settings";
+} from "@app/store/settings/selectors";
 
 import { SwitchControl, InputControl } from "@app/components/settings-control";
 import { ReactComponent as CloseIcon } from "../../assets/icons/cross.svg";

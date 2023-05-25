@@ -1,11 +1,20 @@
 import { useAppSelector } from "@app/hooks/reduxHooks";
-import { TimerState, selectTimerState } from "@app/store/timer";
+import type { TimerState } from "@app/store/timer/reducer";
+import { selectTimerState } from "@app/store/timer/selectors";
+import {
+  selectFocusLength,
+  selectLongBreakLength,
+  selectShortBreakLength,
+} from "@app/store/settings/selectors";
 
 import { ReactComponent as FocusIcon } from "@app/assets/icons/brain.svg";
 import { ReactComponent as CoffeeIcon } from "@app/assets/icons/coffee.svg";
 
 export const useTimerState = () => {
   const timerState: TimerState = useAppSelector(selectTimerState);
+  const focusLength = useAppSelector(selectFocusLength);
+  const longBreakLength = useAppSelector(selectLongBreakLength);
+  const shortBreakLength = useAppSelector(selectShortBreakLength);
 
   switch (timerState) {
     case "focus":
@@ -19,6 +28,7 @@ export const useTimerState = () => {
         labelStyles: "bg-red-500/10 dark:bg-red-500/10",
         labelText: "Focus",
         LabelIcon: FocusIcon,
+        initialTime: focusLength,
       };
     case "long":
       return {
@@ -32,6 +42,7 @@ export const useTimerState = () => {
         labelStyles: "bg-blue-500/10 dark:bg-blue-500/10",
         labelText: "Long Break",
         LabelIcon: CoffeeIcon,
+        initialTime: longBreakLength,
       };
     case "short":
       return {
@@ -46,6 +57,7 @@ export const useTimerState = () => {
         labelStyles: "bg-green-500/10 dark:bg-green-500/10",
         labelText: "Short Break",
         LabelIcon: CoffeeIcon,
+        initialTime: shortBreakLength,
       };
   }
 };

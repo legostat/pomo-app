@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import type { RootState } from "@app/store/store";
 
 export type TimerState = "focus" | "short" | "long";
 
@@ -7,7 +6,12 @@ interface Timer {
   currentState: number;
 }
 
-const StatesQueue: Array<TimerState> = ["focus", "short", "focus", "long"];
+export const StatesQueue: Array<TimerState> = [
+  "focus",
+  "short",
+  "focus",
+  "long",
+];
 
 const initialState: Timer = {
   currentState: 0,
@@ -28,8 +32,5 @@ export const timerSlice = createSlice({
 });
 
 export const { setNextState } = timerSlice.actions;
-
-export const selectTimerState = (state: RootState) =>
-  StatesQueue[state.timer.currentState];
 
 export default timerSlice.reducer;

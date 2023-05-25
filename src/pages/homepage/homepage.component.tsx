@@ -8,13 +8,13 @@ import { ThemeContext } from "@app/context/context";
 export const HomePage = () => {
   const theme = useContext(ThemeContext);
   return (
-    <section
+    <main
       className={clsx("relative", {
         dark: theme.isDark,
       })}
     >
       <Timer />
       <SettingsModal />
-    </section>
+    </main>
   );
 };

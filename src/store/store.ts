@@ -1,7 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
-import settingsReducer from "@app/store/settings";
-import modalsReducer from "@app/store/modals";
-import timerReducer from "@app/store/timer";
+import settingsReducer from "@app/store/settings/reducer";
+import modalsReducer from "@app/store/modals/reducer";
+import timerReducer from "@app/store/timer/reducer";
 
 export const store = configureStore({
   reducer: {
